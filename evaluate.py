@@ -21,7 +21,7 @@ def parse_args_and_config():
                         help='Path for the diffusion model checkpoint to load for evaluation')
     parser.add_argument("--sampling_timesteps", type=int, default=10,
                         help="Number of implicit sampling steps")
-    parser.add_argument("--image_folder", default='results/test', type=str,
+    parser.add_argument("--image_folder", default='/content/drive/My Drive/LOLI/LOLv2/results/test', type=str,
                         help="Location to save restored images")
     parser.add_argument('--seed', default=230, type=int, metavar='N',
                         help='Seed for initializing training (default: 230)')
@@ -66,7 +66,8 @@ def main():
     # data loading
     print("=> using dataset '{}'".format(config.data.val_dataset))
     DATASET = datasets.__dict__[config.data.type](config)
-    _, val_loader = DATASET.get_loaders(parse_patches=False)
+    # Removed parse_patches=False from here
+    _, val_loader = DATASET.get_loaders()  # This no longer takes parse_patches argument
 
     # create model
     print("=> creating denoising-diffusion model")
